@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C Mohh Portfolio</title>
+  <!-- Link to Google Fonts (Raleway for name, Poppins for role) -->
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Link to Font Awesome for Social Media Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      color: #333;
+      text-align: center;
+      flex-direction: column; /* Stack elements vertically */
+    }
+
+    .intro {
+      font-size: 2rem;
+      line-height: 1.5;
+    }
+
+    #name {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 3rem;
+    }
+
+    #dynamic-text {
+      font-weight: 600;
+      color: #007BFF;
+      display: inline-block;
+    }
+
+    /* Blinking cursor style */
+    #cursor {
+      display: inline-block;
+      width: 5px;
+      height: 2rem;
+      background-color: #007BFF;
+      animation: blink 0.7s step-end infinite;
+      margin-left: 5px;
+    }
+
+    /* Blinking animation for cursor */
+    @keyframes blink {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    /* Style for social media icons */
+    .social-icons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .social-icons a {
+      font-size: 2.5rem;
+      margin: 0 15px;
+      color: #333;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: #007BFF;
+    }
+
+    /* Media Query for mobile and tablet responsiveness */
+    @media (max-width: 600px) {
+      #name {
+        font-size: 2.5rem; /* Smaller font size for name */
+      }
+
+      #dynamic-text {
+        font-size: 1.5rem; /* Smaller role text */
+      }
+
+      .social-icons a {
+        font-size: 2rem; /* Smaller social media icons */
+        margin: 0 10px; /* Reduce margin between icons */
+      }
+    }
+
+    @media (max-width: 992px) {
+      #name {
+        font-size: 2.8rem; /* Adjust size for tablets */
+      }
+
+      #dynamic-text {
+        font-size: 1.8rem; /* Adjust role text size for tablets */
+      }
+
+      .social-icons a {
+        font-size: 2.2rem; /* Adjust icon size for tablets */
+        margin: 0 12px; /* Adjust margin between icons for tablets */
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="intro">
+    <h1 id="name">Berrabah Mohamed</h1>
+    <h2 id="role">I'm a <span id="dynamic-text"></span><span id="cursor"></span></h2>
+
+    <!-- Social Media Icons -->
+    <div class="social-icons">
+      <a href="https://www.linkedin.com/in/med-berrabah" target="_blank" class="fab fa-linkedin"></a>
+      <a href="https://github.com/Mouuh" target="_blank" class="fab fa-github"></a>
+      <a href="https://www.facebook.com/berr.medmooh" target="_blank" class="fab fa-facebook"></a>
+      <a href="https://www.instagram.com/wh_ellve/" target="_blank" class="fab fa-instagram"></a>
+      <a href="https://wa.me/yourphonenumber" target="_blank" class="fab fa-whatsapp"></a>
+      <a href="mailto:berrabah_mohamed.fs@univ-boumerdes.dz" target="_blank" class="fas fa-envelope"></a>
+      
+    </div>
+  </div>
+
+  <script>
+    const roles = ['Developer', 'Freelancer', 'Designer', 'Creative', 'Problem Solver']; // Roles to display
+    let currentRole = 0;
+    let textElement = document.getElementById('dynamic-text');
+    let cursorElement = document.getElementById('cursor');
+    let deleting = false;
+    let charIndex = 0;
+    let typingSpeed = 150; // Typing speed in milliseconds
+    let deletingSpeed = 100; // Deleting speed in milliseconds
+    let delayAfterDelete = 1000; // Delay after deleting text
+
+    function typeText() {
+      if (!deleting) {
+        // Type each letter of the current role
+        textElement.textContent += roles[currentRole].charAt(charIndex);
+        charIndex++;
+        if (charIndex === roles[currentRole].length) {
+          deleting = true; // Start deleting after text is fully typed
+          setTimeout(typeText, delayAfterDelete);
+        } else {
+          setTimeout(typeText, typingSpeed);
+        }
+      } else {
+        // Delete text one character at a time
+        textElement.textContent = roles[currentRole].slice(0, charIndex);
+        charIndex--;
+        if (charIndex === 0) {
+          deleting = false;
+          currentRole = (currentRole + 1) % roles.length; // Move to the next role
+          setTimeout(typeText, typingSpeed); // Restart typing with the next role
+        } else {
+          setTimeout(typeText, deletingSpeed);
+        }
+      }
+    }
+
+    // Start the typing animation
+    typeText();
+  </script>
+
+</body>
+</html>
